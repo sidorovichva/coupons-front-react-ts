@@ -1,0 +1,27 @@
+.CouponRep {
+    display: flex;
+    flex-direction:row; 
+    align-items: center;
+    background-color: darkgrey;
+    padding: 5px;
+}
+
+.CouponRep > .title{
+    display: flex;
+    width: 20%;
+}
+
+.CouponRep > .description{
+    display: flex;
+    width: 45%;
+}
+
+.CouponRep > .endDate{
+    display: flex;
+    width: 20%;
+}
+
+.CouponRep > .price{
+    display: flex;
+    width: 15%;
+}
