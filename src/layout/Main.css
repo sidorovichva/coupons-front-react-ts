@@ -1,0 +1,14 @@
+.Main {
+    display: flex;
+    flex-direction: column;
+    background-color: inherit;
+}
+
+.Main > p {
+
+    margin: 5px;;
+}
+
+.Main > p:hover {
+    box-shadow: 2px 2px 2px green;
+}
