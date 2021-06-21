@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-//export const jwtToken = localStorage.getItem("authorization");
 
 const useFetch = (url: string) => {
 
@@ -8,15 +7,14 @@ const useFetch = (url: string) => {
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
 
-    //const token = localStorage.getItem("access_token")
+    const token = localStorage.getItem("Authorization")
 
     useEffect(() => {
 
         const abort = new AbortController();
 
         axios.get(url,
-            //{headers: {Authorization: "Bearer " + jwtToken}}
-            //{headers: {Authorization: "Bearer " + localStorage.getItem("authorization")}}
+            {headers: {"Authorization": token}}
         )
             .then(response => {
                 if (response.status !== 200) {
@@ -40,7 +38,7 @@ const useFetch = (url: string) => {
 
         return () => abort.abort(); 
 
-    }, [url]);
+    }, [url, token]);
 
     return { data, isPending, error }
 }

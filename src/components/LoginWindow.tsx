@@ -13,11 +13,15 @@ const LoginWindow = () => {
         //const myHeaders = new Headers();
         //myHeaders.append("Content-Type", "application/json");
 
-        // const config = {
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded",
-        //     }
-        // }
+        const config = {
+            //?
+            //credentials: 'include',
+
+            headers: {
+                //"Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+            },
+        }
 
         const raw = JSON.stringify({
             "username": username,
@@ -26,13 +30,14 @@ const LoginWindow = () => {
 
         axios.post(
             "https://coupons-back-mysql-jwt.herokuapp.com/login",
+            //"http://localhost:8080/login",
             raw,
-            //config
+            config
         )
         .then(res => {
             console.log(res)
-            localStorage.setItem("authorization", JSON.stringify(res.data.Token));
-            console.log(localStorage.getItem("authorization"));
+            localStorage.setItem("Authorization", JSON.stringify(res.data.Authorization).slice(1, -1));
+            console.log(localStorage.getItem("Authorization"));
         })
         .catch(err => console.log(err));
     }
