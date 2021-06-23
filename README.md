@@ -1,4 +1,4 @@
-:warning: The project is under construction
+:warning: The project is under construction 👷 
 
 Goal: front-end for the coupons-back-mysql-jwt spring project
 Technologies: TS, React.js, Redux Toolkit, Axios, JWT authentication
