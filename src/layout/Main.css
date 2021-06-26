@@ -2,13 +2,16 @@
     display: flex;
     flex-direction: column;
     background-color: inherit;
+    /*align-content: center;*/
+    align-items: center;
+    /*justify-content: center;*/
 }
 
-.Main > p {
-
-    margin: 5px;;
+.Main > div {
+    width: 80%;
+    margin: 1vh;
 }
 
-.Main > p:hover {
+.Main > div:hover {
     box-shadow: 2px 2px 2px green;
 }

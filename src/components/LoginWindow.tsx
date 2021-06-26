@@ -2,23 +2,20 @@ import React, { SyntheticEvent } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import './LoginWindow.css';
+import {useDispatch} from "react-redux";
+import {authorize, pushTheButton} from "../redux/LoginSlice";
 
 const LoginWindow = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const dispatch = useDispatch();
+
     const handleSubmit = (args: SyntheticEvent) => {
-        args.preventDefault()
-        //const myHeaders = new Headers();
-        //myHeaders.append("Content-Type", "application/json");
-
+        args.preventDefault();
         const config = {
-            //?
-            //credentials: 'include',
-
             headers: {
-                //"Content-Type": "application/x-www-form-urlencoded",
                 "Content-Type": "application/json",
             },
         }
@@ -35,12 +32,39 @@ const LoginWindow = () => {
             config
         )
         .then(res => {
-            console.log(res)
-            localStorage.setItem("Authorization", JSON.stringify(res.data.Authorization).slice(1, -1));
-            console.log(localStorage.getItem("Authorization"));
+            if (res.data.Authorization !== null && res.data.Authorization.startsWith("Bearer ")) {
+
+                localStorage.setItem("Authorization", JSON.stringify(res.data.Authorization)
+                    .slice(1, -1)
+                    .replace(/\sUsername:[\w\d\W\D]+/, ''))
+
+                localStorage.setItem("Username", JSON.stringify(res.data.Authorization)
+                    .slice(1, -1)
+                    .replace(/Bearer\s[\S]+\sUsername:/, '')
+                    .replace(/\sRole:\[ROLE_[\w]+]$/, ''))
+
+                localStorage.setItem("Role", JSON.stringify(res.data.Authorization)
+                    .slice(1, -1)
+                    .replace(/Bearer\s[\w\d\W\D]+\sRole:\[ROLE_/, '')
+                    .replace(/]$/, ''))
+
+                dispatch(authorize({
+                    emailValue: localStorage.getItem("Username"),
+                    roleValue: localStorage.getItem("Role")
+                }))
+                dispatch(pushTheButton());
+            } else {
+                console.log("authorization failed")
+            }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            setUsername('');
+            setPassword('');
+        });
     }
+
+    //const email = localStorage.getItem("Authorization")
 
     return (
         <form className="LoginWindow" onSubmit={ handleSubmit }>

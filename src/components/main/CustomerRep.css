@@ -1,0 +1,22 @@
+.CustomerRep {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    background-color: darkgrey;
+    padding: 5px;
+}
+
+.CustomerRep > .firstName{
+    display: flex;
+    width: 30%;
+}
+
+.CustomerRep > .lastName{
+    display: flex;
+    width: 30%;
+}
+
+.CustomerRep > .email{
+    display: flex;
+    width: 40%;
+}

@@ -1,11 +1,12 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import ConfigureStore from "../../redux/StoreConfig";
+import './DropDownMenu.css'
 import { categories, companies, customers, coupons, purchases } from "../../redux/DropDownMenuSlice";
 
 const DropDownMenu = (): JSX.Element => {
 
-    const { title } = useSelector((state) => ConfigureStore.getState().DropDownMenuSlice);
+    const { title } = useSelector((state) => ConfigureStore.getState().MainScreenSlicer);
     const dispatch = useDispatch();
 
     const handleSelect = (event: ChangeEvent<HTMLSelectElement>): void => {

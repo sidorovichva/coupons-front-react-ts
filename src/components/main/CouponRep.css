@@ -1,4 +1,5 @@
 .CouponRep {
+    height: 30px;
     display: flex;
     flex-direction:row; 
     align-items: center;
@@ -13,15 +14,56 @@
 
 .CouponRep > .description{
     display: flex;
-    width: 45%;
+    width: 35%;
 }
 
 .CouponRep > .endDate{
     display: flex;
-    width: 20%;
+    width: 15%;
 }
 
 .CouponRep > .price{
     display: flex;
     width: 15%;
+}
+
+.CouponRep > .actions {
+    display: flex;
+    width: 15%;
+    height: 100%;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+}
+
+.actions > .buy{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions > .update{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions > .delete{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
 }

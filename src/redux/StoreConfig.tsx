@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./counter";
 import DropDownMenuReducer from "./DropDownMenuSlice";
+import LoginReducer from "./LoginSlice";
+import PopUpWindowsReducer from "./PopUpWindowsSlicer";
+import MainScreenReducer from "./MainScreenSlicer";
 
 export default configureStore({
     reducer: {
-        counter: counterReducer,
-        DropDownMenuSlice: DropDownMenuReducer
+        DropDownMenuSlice: DropDownMenuReducer,
+        LoginSlice: LoginReducer,
+        PopUpWindowsSlicer: PopUpWindowsReducer,
+        MainScreenSlicer: MainScreenReducer,
     }
 });

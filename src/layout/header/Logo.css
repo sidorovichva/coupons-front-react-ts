@@ -1,11 +1,16 @@
 .Logo {
-    width: 100%;
+    width: 10%;
     height: 100%;
-    float: left;
+    float: right;
     background-color: inherit;
     align-items: center;
     justify-content: center;
     color: green;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
 @media screen and (min-width: 760px) {

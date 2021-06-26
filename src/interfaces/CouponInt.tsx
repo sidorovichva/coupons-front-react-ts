@@ -1,4 +1,6 @@
-export interface CouponInt {
+import {BeanInt} from "./BeanInt";
+
+export interface CouponInt extends BeanInt{
     id: number,
     category: string,
     company: string,
