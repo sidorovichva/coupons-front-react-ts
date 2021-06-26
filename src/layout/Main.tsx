@@ -17,7 +17,7 @@ const Main = (): JSX.Element => {
     const { title, link } = useSelector((state) => ConfigureStore.getState().MainScreenSlicer);
 
     //hook to data download
-    const { data: data, isPending, error } = useFetch(link);
+    const { data: array, isPending, error } = useFetch(link);
 
     //theme change context
     const { isLightTheme, light, dark } = useContext(ThemeContext);
@@ -28,7 +28,7 @@ const Main = (): JSX.Element => {
             <h1>{title}</h1>
             {error !== null ? error :
                 isPending === true ? "Loading..." :
-                    data.map((company: CompanyInt) => (
+                    array.map((company: CompanyInt) => (
                             <div key={ company.id }>
                                 <CompanyRep {...company}/>
                             </div>
@@ -42,7 +42,7 @@ const Main = (): JSX.Element => {
             <h1>{title}</h1>
             {error !== null ? error :
                 isPending === true ? "Loading..." :
-                    data.map((customer: CustomerInt) => (
+                    array.map((customer: CustomerInt) => (
                             <div key={ customer.id }>
                                 <CustomerRep {...customer}/>
                             </div>
@@ -56,7 +56,7 @@ const Main = (): JSX.Element => {
             <h1>{title}</h1>
             {error !== null ? error :
                 isPending === true ? "Loading..." :
-                    data.map((coupon: CouponInt) => (
+                    array.map((coupon: CouponInt) => (
                         <div key={ coupon.id }>
                             <CouponRep {...coupon}/>
                         </div>
