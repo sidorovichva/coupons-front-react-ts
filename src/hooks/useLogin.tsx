@@ -9,7 +9,7 @@ import {resetLogin} from "../redux/axios/AxiosLoginSlice";
 
 const useLogin = (body: string) => {
 
-    const index = 'https://coupons-back-mysql-jwt.herokuapp.com/login';
+    const index = 'http://localhost:8080/login';
 
     const dispatch = useDispatch();
 
