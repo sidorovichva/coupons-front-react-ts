@@ -3,13 +3,14 @@ import './Coupons.css';
 import {useDispatch, useSelector} from "react-redux";
 import ConfigureStore from "../../redux/StoreConfig";
 import {openWindow} from "../../redux/PopUpWindowsSlicer";
-import {companyCoupons, coupons, customerCoupons} from "../../redux/MainScreenSlicer";
+import {companyCoupons, coupons, customerCoupons, nonCustomerCoupons} from "../../redux/MainScreenSlicer";
+import AddCoupon from "../../components/AddCoupon";
 
 const Coupons = (): JSX.Element => {
 
-    //const { addCoupon } = useSelector((state) => ConfigureStore.getState().PopUpWindowsSlicer);
     const { role } = useSelector((state) => ConfigureStore.getState().LoginSlice);
-    //const {  } = useSelector((state) => ConfigureStore.getState().MainScreenSlicer);
+    const { addCoupon } = useSelector((state) => ConfigureStore.getState().PopUpWindowsSlicer);
+
     const dispatch = useDispatch();
 
     const handleAdd = () => {
@@ -20,11 +21,16 @@ const Coupons = (): JSX.Element => {
         dispatch(customerCoupons())
     }
 
+    const handleShopCoupons = () => {
+        dispatch(nonCustomerCoupons())
+    }
+
     const handleIssuedCoupons = () => {
         dispatch(companyCoupons())
     }
 
     const handleAllCoupons = () => {
+
         dispatch(coupons())
     }
 
@@ -34,12 +40,11 @@ const Coupons = (): JSX.Element => {
             <ul className="dropdown">
                 {role === 'COMPANY' && <li onClick={handleAdd}>Add</li>}
                 {role === 'CUSTOMER' && <li onClick={handleMyCoupons}>My coupons</li>}
-                {role === 'COMPANY' && <li onClick={handleIssuedCoupons}>My coupons</li>}
+                {role === 'COMPANY' && <li onClick={handleIssuedCoupons}>Issued coupons</li>}
+                {role === 'CUSTOMER' && <li onClick={handleShopCoupons}>Go Shopping</li>}
                 <li onClick={handleAllCoupons}>All coupons</li>
             </ul>
-            {/*{addCoupon && <AddCoupon />}*/}
-            {/*{addCustomer && <AddCompany />}*/}
-            {/*{deleteCompany && <DeleteCompany />}*/}
+            {addCoupon && <AddCoupon />}
         </div>
     );
 }

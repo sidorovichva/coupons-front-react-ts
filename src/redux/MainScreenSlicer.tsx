@@ -3,39 +3,47 @@ import { createSlice } from "@reduxjs/toolkit";
 export const MainScreenSlicer = createSlice({
     name: "MainScreenSlicer",
     initialState: {
+        type: 'Coupon',
         title: 'Coupons',
-        link: 'https://coupons-back-mysql-jwt.herokuapp.com',
-        //link: 'http://localhost:8080',
+        link: '',
     },
     reducers: {
         categories: (state) => {
+            state.type = 'Category';
             state.title = 'Categories';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com/categories';},
-            //state.link = 'http://localhost:8080/categories';},
+            state.link = '/categories';},
         companies: (state) => {
+            state.type = 'Company';
             state.title = 'Companies';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com/companies';},
-            //state.link = 'http://localhost:8080/companies';},
+            state.link = '/companies';},
         customers: (state) => {
+            state.type = 'Customer';
             state.title = 'Customers';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com/customers';},
-            //state.link = 'http://localhost:8080/customers';},
+            state.link = '/customers';},
         coupons: (state) => {
+            state.type = 'Coupon';
             state.title = 'Coupons';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com';},
-            //state.link = 'http://localhost:8080';},
+            state.link = '';},
         customerCoupons: (state) => {
+            state.type = 'Coupon';
             state.title = 'My coupons';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com/purchases';},
-            //state.link = 'http://localhost:8080/purchases';},
+            state.link = '/purchases';},
+        nonCustomerCoupons: (state) => {
+            state.type = 'Coupon';
+            state.title = 'Buy a coupon';
+            state.link = '/purchases/not';},
         companyCoupons: (state) => {
+            state.type = 'Coupon';
             state.title = 'Issued coupons';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com/coupons';},
-            //state.link = 'http://localhost:8080/coupons';},
+            state.link = '/coupons';},
         purchases: (state) => {
+            state.type = 'Coupon';
             state.title = 'Purchases';
-            state.link = 'https://coupons-back-mysql-jwt.herokuapp.com/purchases';},
-            //state.link = 'http://localhost:8080/purchases';},
+            state.link = '/purchases';},
+        about: (state) => {
+            state.type = 'About';
+            state.title = 'About the project';
+            state.link = '';},
     }
 });
 
@@ -45,8 +53,10 @@ export const {
     customers,
     coupons,
     purchases,
+    nonCustomerCoupons,
     customerCoupons,
-    companyCoupons
+    companyCoupons,
+    about
 } = MainScreenSlicer.actions;
 
 export default MainScreenSlicer.reducer;

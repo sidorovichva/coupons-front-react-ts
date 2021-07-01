@@ -1,116 +1,88 @@
-import React, { SyntheticEvent } from 'react';
+import React, {SyntheticEvent, useEffect} from 'react';
 import { useState } from 'react';
-import axios from 'axios';
 import './LoginWindow.css';
-import {useDispatch} from "react-redux";
-import {authorize, pushTheButton} from "../redux/LoginSlice";
+import {useSelector} from "react-redux";
+import FormInput from "./form/FormInput";
+import FormHeader from "./form/FormHeader";
+import FormSubmit from "./form/FormSubmit";
+import ConfigureStore from "../redux/StoreConfig";
+import useLogin from "../hooks/useLogin";
+import FormRegister from "./form/FormRegister";
 
 const LoginWindow = () => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const { value, field } = useSelector((state) => ConfigureStore.getState().InputAsStringSlicer);
 
-    const dispatch = useDispatch();
+    const [loginUsername, setLoginUsername] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
+    const [body, setBody] = useState('');
+
+    useLogin(body);
+
+    useEffect(() => {
+        if (field === 'loginUsername') setLoginUsername(value);
+        if (field === 'loginPassword') setLoginPassword(value);
+    }, [value, field])
 
     const handleSubmit = (args: SyntheticEvent) => {
         args.preventDefault();
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-
-        const raw = JSON.stringify({
-            "username": username,
-            "password": password
-        });
-
-        axios.post(
-            "https://coupons-back-mysql-jwt.herokuapp.com/login",
-            //"http://localhost:8080/login",
-            raw,
-            config
-        )
-        .then(res => {
-            if (res.data.Authorization !== null && res.data.Authorization.startsWith("Bearer ")) {
-
-                localStorage.setItem("Authorization", JSON.stringify(res.data.Authorization)
-                    .slice(1, -1)
-                    .replace(/\sUsername:[\w\d\W\D]+/, ''))
-
-                localStorage.setItem("Username", JSON.stringify(res.data.Authorization)
-                    .slice(1, -1)
-                    .replace(/Bearer\s[\S]+\sUsername:/, '')
-                    .replace(/\sRole:\[ROLE_[\w]+]$/, ''))
-
-                localStorage.setItem("Role", JSON.stringify(res.data.Authorization)
-                    .slice(1, -1)
-                    .replace(/Bearer\s[\w\d\W\D]+\sRole:\[ROLE_/, '')
-                    .replace(/]$/, ''))
-
-                dispatch(authorize({
-                    emailValue: localStorage.getItem("Username"),
-                    roleValue: localStorage.getItem("Role")
-                }))
-                dispatch(pushTheButton());
-            } else {
-                console.log("authorization failed")
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            setUsername('');
-            setPassword('');
-        });
+        setBody(JSON.stringify({
+            "username": loginUsername,
+            "password": loginPassword,
+        }));
     }
-
-    //const email = localStorage.getItem("Authorization")
 
     return (
         <form className="LoginWindow" onSubmit={ handleSubmit }>
-            <div>
-                <header>Login Form</header>
-            </div>
-            <div>
-                <input
-                    className="user"
-                    type="text"
-                    placeholder="e-mail"
-                    value={  username }
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <input
-                    className="pass"
-                    type="password"
-                    placeholder="password"
-                    value={ password }
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <div className="submit">
-                <input
-                    className="submitButton"
-                    type="submit"
-                />
-            </div>
-            <div className="bottom">
-                <input
-                    className="register"
-                    type="button"
-                    //onClick={ handleClick }
-                />
-                <input
-                    className="forget"
-                    type="button"
-                    //onClick={ handleClick }
-                />
-            </div>
+            <FormHeader title="Login Form" />
+            <FormInput className="loginUsername" type="text" placeholder="e-mail" />
+            <FormInput className="loginPassword" type="password" placeholder="password" />
+            <FormSubmit />
+            <FormRegister />
         </form>
     )
 }
 
 export default LoginWindow;
+
+// import FormRegister from "./form/FormRegister";
+//
+// const LoginWindow = () => {
+//
+//     const { value, field } = useSelector((state) => ConfigureStore.getState().InputAsStringSlicer);
+//     const dispatch = useDispatch();
+//
+//     useLogin();
+//
+//     const [loginUsername, setLoginUsername] = useState('');
+//     const [loginPassword, setLoginPassword] = useState('');
+//
+//     useEffect(() => {
+//         if (field === 'loginUsername') setLoginUsername(value);
+//         if (field === 'loginPassword') setLoginPassword(value);
+//     }, [value])
+//
+//     const handleSubmit = (args: SyntheticEvent) => {
+//         args.preventDefault();
+//         dispatch(sendRequest({
+//             linkValue: '/login',
+//             methodValue: 'POST',
+//             bodyValue: JSON.stringify({
+//                 "username": loginUsername,
+//                 "password": loginPassword,
+//             })
+//         }));
+//     }
+//
+//     return (
+//         <form className="LoginWindow" onSubmit={ handleSubmit }>
+//             <FormHeader title="Login Form" />
+//             <FormInput className="loginUsername" type="text" placeholder="e-mail" />
+//             <FormInput className="loginPassword" type="password" placeholder="password" />
+//             <FormSubmit />
+//             <FormRegister />
+//         </form>
+//     )
+// }
+//
+// export default LoginWindow;

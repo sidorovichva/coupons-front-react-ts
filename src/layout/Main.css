@@ -6,12 +6,3 @@
     align-items: center;
     /*justify-content: center;*/
 }
-
-.Main > div {
-    width: 80%;
-    margin: 1vh;
-}
-
-.Main > div:hover {
-    box-shadow: 2px 2px 2px green;
-}

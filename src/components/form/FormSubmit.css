@@ -1,0 +1,30 @@
+.FormSubmit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 80%;
+    height: 60%;
+    appearance: none;
+    color: black;
+    border-width: 0px;
+}
+
+.submitButton {
+    width: 40%;
+    height: 60%;
+    background-color: green;
+    cursor: pointer;
+    color: white;
+    border: none;
+}
+
+.cancelButton {
+    width: 40%;
+    height: 60%;
+    background-color: red;
+    cursor: pointer;
+    color: white;
+    border: none;
+}

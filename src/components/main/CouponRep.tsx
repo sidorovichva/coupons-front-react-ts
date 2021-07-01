@@ -1,71 +1,63 @@
 import './CouponRep.css';
 import {CouponInt} from "../../interfaces/CouponInt";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ConfigureStore from "../../redux/StoreConfig";
-import {SyntheticEvent, useState} from "react";
-import axios from "axios";
+import {useState} from "react";
+import UpdateCoupon from "../UpdateCoupon";
+import {openWindow} from "../../redux/PopUpWindowsSlicer";
+import Delete from "./actions/Delete";
+import Add from "./actions/Add";
 
 const CouponRep = (coupon: CouponInt) => {
 
     const {role} = useSelector((state) => ConfigureStore.getState().LoginSlice);
-    const {title} = useSelector((state) => ConfigureStore.getState().MainScreenSlicer);
+    const { updateCoupon } = useSelector((state) => ConfigureStore.getState().PopUpWindowsSlicer);
+    const { title } = useSelector((state) => ConfigureStore.getState().MainScreenSlicer);
+    const dispatch = useDispatch();
 
     const [bought, setBought] = useState<boolean>(false);
-    const [deleted, setDeleted] = useState<boolean>(false);
+    //const [deleted, setDeleted] = useState<boolean>(false);
 
-    const token = localStorage.getItem("Authorization")
-    const config = {
-        headers: {
-            "Authorization": token,
-            "Content-Type": "application/json"
-        }
+    const [isToBuy, setIsToBuy] = useState<boolean>(false);
+    const [buyLink] = useState('/purchases');
+    const [body, setBody] = useState('');
+
+    const handleBuy = () => {
+        setBody(JSON.stringify(coupon.id));
+        setIsToBuy(true);
+        setBought(true);
+    };
+
+    const handleUpdate = () => {
+        dispatch(openWindow({stateName: 'updateCoupon'}))
     }
 
-    const handleBuy = (args: SyntheticEvent) => {
-        args.preventDefault();
-        const raw = JSON.stringify(coupon.id);
-        console.log(raw)
+    const [isToDelete, setIsToDelete] = useState<boolean>(false);
+    const [linkToDelete] = useState('/coupons');
+    const [deleteLink, setDeleteLink] = useState<string>('');
 
-        //axios.post('http://localhost:8080/purchases', raw, config)
-        axios.post('https://coupons-back-mysql-jwt.herokuapp.com/purchases', raw, config)
-            .then(response => {
-                console.log(response.status)
-                setBought(true);
-            })
-            .catch((err) => {
-                console.log(err.name)
-            })
-    }
-
-    const handleDelete = (args: SyntheticEvent) => {
-        args.preventDefault();
-        const raw = JSON.stringify(coupon.id);
-        console.log(raw)
-
-        //axios.delete('http://localhost:8080/coupons/' + coupon.id, config)
-        axios.delete('https://coupons-back-mysql-jwt.herokuapp.com/coupons/' + coupon.id, config)
-            .then(response => {
-                console.log(response.status)
-                setDeleted(true);
-            })
-            .catch((err) => {
-                console.log(err.name)
-            })
-
+    const handleDelete = () => {
+        console.log("del")
+        setDeleteLink(linkToDelete + '/' + coupon.id);
+        setIsToDelete(true);
+        //setDeleted(true);
     }
 
     return (
-        deleted ? <div></div> :
+        //deleted ? <div></div> :
         <div className="CouponRep">
             <div className="title">{coupon.title}</div>
             <div className="description">{coupon.description}</div>
             <div className="endDate">{coupon.endDate}</div>
             <div className="price">{coupon.price}</div>
-            {title !== 'My coupons' && <div className="actions">
-                {role === 'CUSTOMER' && !bought && <div className="buy" onClick={handleBuy}>Buy</div>}
-                {role === 'COMPANY' && <div className="update">Update</div>}
-                {role === 'COMPANY' && <div className="delete" onClick={handleDelete}>Delete</div>}
-            </div>}
+            <div className="actions">
+                {role === 'CUSTOMER' && !bought && title !== 'My coupons' && <div className="buy" onClick={handleBuy}>Buy</div>}
+                {role === 'COMPANY' && <div className="update" onClick={handleUpdate}>Update</div>}
+                {role === 'COMPANY' && <div className="delete" onClick={ handleDelete }>Delete</div>}
+            </div>
+            {isToBuy && <Add link={buyLink} body={body} />}
+            {updateCoupon && <UpdateCoupon coupon={ coupon } />}
+            {isToDelete && <Delete link={deleteLink} />}
         </div>
     );
 }

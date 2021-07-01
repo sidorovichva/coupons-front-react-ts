@@ -1,26 +1,104 @@
 .Logo {
-    width: 10%;
+    width: 15%;
     height: 100%;
     float: right;
     background-color: inherit;
     align-items: center;
     justify-content: center;
-    color: green;
+    
+    cursor: pointer;
+    position: relative;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.Home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    color: green;
     font-weight: bold;
 }
 
-@media screen and (min-width: 760px) {
-    .Logo {
-        font-size: 30px;
-    }
+.dropdown {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    /*background: lightgreen;*/
+    /*color: darkblue;*/
+    /*width: 1000px;*/
+    /*font-weight: 900;*/
 }
 
-@media screen and (max-width: 759px) {
-    .Logo {
-        font-size: 16px;
+.Logo > ul > li {
+    position: relative;
+    cursor: pointer;
+    float: left;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    background: grey;
+    display: none;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dropdown li:hover {
+    background: green;
+}
+
+.Logo:hover .dropdown{
+    display: block;
+    /*perspective: 1000px;*/
+}
+
+.Logo li:hover > .dropdown li{
+    transform-origin: top center;
+    opacity: 0;
+    display: block;
+}
+
+.Logo li:hover > .dropdown li:nth-child(1) {
+    animation: animate 300ms ease-in-out forwards;
+    animation-delay: -150ms;
+}
+.Logo li:hover > .dropdown li:nth-child(2) {
+    animation: animate 300ms ease-in-out forwards;
+    animation-delay: 0ms;
+}
+.Logo li:hover > .dropdown li:nth-child(3) {
+    animation: animate 300ms ease-in-out forwards;
+    animation-delay: 150ms;
+}
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    70% {
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
     }
 }

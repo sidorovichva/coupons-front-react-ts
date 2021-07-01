@@ -1,4 +1,4 @@
-enum Roles {
+enum Role {
     ADMINISTRATOR,
     CUSTOMER,
     COMPANY,
@@ -10,23 +10,23 @@ export const getRole = () => {
 
     switch (role) {
         case 'ADMINISTRATOR': {
-            return Roles.ADMINISTRATOR;
+            return Role.ADMINISTRATOR;
             break;
         }
         case 'CUSTOMER': {
-            return Roles.CUSTOMER;
+            return Role.CUSTOMER;
             break;
         }
         case 'COMPANY': {
-            return Roles.COMPANY;
+            return Role.COMPANY;
             break;
         }
         default: {
-            return Roles.GUEST;
+            return Role.GUEST;
             break;
         }
     }
 }
 
 
-export default Roles;
+export default Role;

@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
-import axios from "axios";
+import AxiosConfig from "../axios/AxiosConfig";
 
 const useFetch = (url: string) => {
+
+    console.log("OUT")
 
     const [data, setData] = useState<[]>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
 
-    const token = localStorage.getItem("Authorization")
-
     useEffect(() => {
+
+        console.log("IN")
 
         const abort = new AbortController();
 
-        axios.get(url,
-            {headers: {"Authorization": token}}
-        )
+        AxiosConfig.get(url)
             .then(response => {
                 if (response.status !== 200) {
                     throw Error("the data couldn't be fetched")
                 }
+                console.log(response)
+                //if (url === 'http://localhost:8080') dispatch(loadAllCoupons({allCouponsArray: response.data}))
                 return response;
             })
             .then((response) => {
@@ -38,7 +40,7 @@ const useFetch = (url: string) => {
 
         return () => abort.abort(); 
 
-    }, [url, token]);
+    }, [url]);
 
     return { data, isPending, error }
 }

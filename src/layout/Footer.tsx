@@ -13,7 +13,11 @@ const Footer: React.FC<Props> = () => {
 
     return (
         <div className="Footer" style={{backgroundColor: currentTheme.bg, color: currentTheme.syntax}}>
-
+            <div>ADMINISTRATOR e-mail:"admin" password:"a"</div>
+            <div> | </div>
+            <div>COMPANY: e-mail:"company" password:"com"</div>
+            <div> | </div>
+            <div>CUSTOMER: e-mail:"customer" password:"cus"</div>
         </div>
     );
 }

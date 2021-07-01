@@ -1,5 +1,5 @@
 .Coupons {
-    width: 10%;
+    width: 20%;
     height: 100%;
     float: left;
 
@@ -9,6 +9,8 @@
 
     cursor: pointer;
     position: relative;
+
+    border-bottom: none;
     /*display: inline-block;*/
 }
 
@@ -30,8 +32,6 @@
 .Coupons > ul > li {
     position: relative;
     cursor: pointer;
-    font-size: 15px;
-    letter-spacing: 2px;
     float: left;
     width: 100%;
     height: 50px;

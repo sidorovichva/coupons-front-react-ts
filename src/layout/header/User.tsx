@@ -3,6 +3,7 @@ import './User.css';
 import {useDispatch, useSelector} from "react-redux";
 import ConfigureStore from "../../redux/StoreConfig";
 import {unAuthorize} from "../../redux/LoginSlice";
+import {coupons} from "../../redux/MainScreenSlicer";
 
 const User = (): JSX.Element => {
 
@@ -18,6 +19,7 @@ const User = (): JSX.Element => {
         localStorage.setItem("Username", '');
         localStorage.setItem("Role", '');
         localStorage.setItem("Authorization", '');
+        dispatch(coupons());
     }
 
     return (

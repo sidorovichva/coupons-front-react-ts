@@ -1,97 +1,50 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent, useEffect, useState} from 'react';
 import './AddCompany.css';
-import {useDispatch} from "react-redux";
-import {closeWindow} from "../redux/PopUpWindowsSlicer";
-import axios from "axios";
+import {useSelector} from "react-redux";
+import ConfigureStore from "../redux/StoreConfig";
+import FormInput from "./form/FormInput";
+import FormHeader from "./form/FormHeader";
+import FormSubmit from "./form/FormSubmit";
+import Add from "./main/actions/Add";
 
 const AddCompany = (): JSX.Element => {
 
-    const dispatch = useDispatch();
+    console.log("add company")
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { value, field } = useSelector((state) => ConfigureStore.getState().InputAsStringSlicer);
 
-    const token = localStorage.getItem("Authorization")
-    const config = {
-        headers: {
-            "Authorization": token,
-            "Content-Type": "application/json"
-        }
-    }
+    const [companyName, setCompanyName] = useState('');
+    const [companyEmail, setCompanyEmail] = useState('');
+    const [companyPassword, setCompanyPassword] = useState('');
+
+    useEffect(() => {
+        if (field === 'companyName') setCompanyName(value);
+        if (field === 'companyEmail') setCompanyEmail(value);
+        if (field === 'companyPassword') setCompanyPassword(value);
+    }, [value, field])
+
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [link] = useState('/companies');
+    const [body, setBody] = useState('');
 
     const handleSubmit = (args: SyntheticEvent) => {
         args.preventDefault();
-        const raw = JSON.stringify({
-            "name": name,
-            "email": email,
-            "password": password
-        });
-        console.log(raw)
-
-        //axios.post('http://localhost:8080/companies', raw, config)
-        axios.post('https://coupons-back-mysql-jwt.herokuapp.com/companies', raw, config)
-            .then(response => {
-                console.log(response.status)
-                dispatch(closeWindow())
-            })
-            .catch((err) => {
-                console.log(err.name)
-            })
-    }
-
-    const cancel = (args: SyntheticEvent) => {
-        dispatch(closeWindow())
+        setIsSubmitted(true);
+        setBody(JSON.stringify({
+                "name": companyName,
+                "email": companyEmail,
+                "password": companyPassword
+        }));
     }
 
     return (
         <form className="AddCompany" onSubmit={ handleSubmit }>
-            <div className="title">
-                <header>Add Company</header>
-                <button className="closeButton" onClick={ cancel }>&times;</button>
-            </div>
-            <div>
-                <input
-                    className="name"
-                    type="text"
-                    placeholder="company title"
-                    value={ name }
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <input
-                    className="email"
-                    type="text"
-                    placeholder="email"
-                    value={ email }
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <input
-                    className="pass"
-                    type="password"
-                    placeholder="password"
-                    value={ password }
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <div className="submit">
-                <input
-                    className="submitButton"
-                    type="submit"
-                />
-                <input
-                    className="cancelButton"
-                    type="submit"
-                    value="Cancel"
-                    onClick={ cancel }
-                />
-            </div>
+            <FormHeader title="Add Company"/>
+            <FormInput className="companyName" type="text" placeholder="company title"/>
+            <FormInput className="companyEmail" type="text" placeholder="email"/>
+            <FormInput className="companyPassword" type="password" placeholder="password"/>
+            <FormSubmit />
+            {isSubmitted && <Add link={link} body={body} />}
         </form>
     );
 }

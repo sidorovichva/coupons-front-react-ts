@@ -4,13 +4,13 @@ import './Header.css'
 import {useSelector} from "react-redux";
 import ConfigureStore from "../redux/StoreConfig";
 import Logo from "./header/Logo";
-import LoginButton from "./header/LoginButton";
 import ThemeSwitch from "./header/ThemeSwitch";
 import User from "./header/User";
 import Companies from "./header/Companies";
 import Customers from "./header/Customers";
 import Coupons from "./header/Coupons";
 import DropDownMenu from "./header/DropDownMenu";
+import Login from "./header/Login";
 
 const Header = (): JSX.Element => {
 
@@ -32,7 +32,7 @@ const Header = (): JSX.Element => {
                 {/*<Language />*/}
                 <ThemeSwitch />
                 {email !== '' && <User />}
-                {email === '' && <LoginButton />}
+                {email === '' && <Login />}
             {/*</div>*/}
         </div>
     );

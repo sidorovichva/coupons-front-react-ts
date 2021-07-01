@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] =
-    'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOSVNUUkFUT1IifV0sImlhdCI6MTYyNDI1MjI1OSwiZXhwIjoxNjI1MTE2MjU5fQ.27ZiAfvSmLrcYl0gw0it9kKJfE8LCTXlmxqUe32kE3pAuzQpNHE3-NQS3Dmjg7GT';
+const token = localStorage.getItem("Authorization")
 
-const axiosInstance = axios.create({
-    baseURL: 'https://coupons-back-mysql-jwt.herokuapp.com'
+const AxiosConfig = axios.create({
+    //baseURL: 'https://coupons-back-mysql-jwt.herokuapp.com',
+    baseURL: 'http://localhost:8080',
+    headers: token === '' ?
+        {"Content-Type": "application/json"} :
+        {
+            "Authorization": token,
+            "Content-Type": "application/json"
+        }
 });
+
+export default AxiosConfig;

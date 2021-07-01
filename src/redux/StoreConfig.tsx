@@ -3,6 +3,11 @@ import DropDownMenuReducer from "./DropDownMenuSlice";
 import LoginReducer from "./LoginSlice";
 import PopUpWindowsReducer from "./PopUpWindowsSlicer";
 import MainScreenReducer from "./MainScreenSlicer";
+import InputAsStringReducer from "./formComponents/InputAsStringSlicer";
+import AxiosSlicerReducer from "./AxiosSlicer";
+import CouponSlicerReducer from "./CouponSlicer";
+import DataSlicerReducer from "./DataSlicer";
+import AxiosLoginSliceReducer from "./axios/AxiosLoginSlice";
 
 export default configureStore({
     reducer: {
@@ -10,5 +15,10 @@ export default configureStore({
         LoginSlice: LoginReducer,
         PopUpWindowsSlicer: PopUpWindowsReducer,
         MainScreenSlicer: MainScreenReducer,
+        InputAsStringSlicer: InputAsStringReducer,
+        AxiosSlicer: AxiosSlicerReducer,
+        CouponSlicer: CouponSlicerReducer,
+        DataSlicer: DataSlicerReducer,
+        AxiosLoginSlice: AxiosLoginSliceReducer,
     }
 });

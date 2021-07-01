@@ -16,10 +16,6 @@ const Companies = (): JSX.Element => {
         dispatch(openWindow({stateName: 'addCompany'}))
     }
 
-    const handleDel = () => {
-        dispatch(openWindow({stateName: 'deleteCompany'}))
-    }
-
     const handleFind = () => {
         dispatch(companies())
     }
@@ -29,12 +25,9 @@ const Companies = (): JSX.Element => {
             Companies
             <ul className="dropdown">
                 {role === 'ADMINISTRATOR' && <li onClick={ handleAdd }>Add</li>}
-                {role === 'ADMINISTRATOR' && <li onClick={ handleDel }>Delete</li>}
-                <li onClick={ handleFind }>Find</li>
-
+                <li onClick={ handleFind }>Show all</li>
             </ul>
             {addCompany && <AddCompany />}
-            {/*{deleteCompany && <DeleteCompany />}*/}
         </div>
     );
 }

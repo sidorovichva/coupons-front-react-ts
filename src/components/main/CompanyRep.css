@@ -1,27 +1,26 @@
 .CompanyRep {
-    /*width: 100%;*/
-    /*display: flex;*/
-    /*flex-direction:row;*/
-    /*align-items: center;*/
-    /*align-content: center;*/
-    /*padding: 5px;*/
-    /*margin: 2vh;*/
-
     height: 30px;
     display: flex;
     flex-direction:row;
     align-items: center;
     background-color: darkgrey;
     padding: 5px;
+    margin: 1vh;
+}
+.CompanyRep:hover {
+    box-shadow: 2px 2px 2px green;
+}
 
+
+.CompanyRep > div{
+    border-bottom: none;
+    display: flex;
 }
 
 .CompanyRep > .nameComp{
-    display: flex;
     width: 50%;
 }
 
 .CompanyRep > .emailComp{
-    display: flex;
     width: 50%;
 }

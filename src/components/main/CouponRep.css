@@ -5,30 +5,35 @@
     align-items: center;
     background-color: darkgrey;
     padding: 5px;
+    margin: 1vh;
+}
+
+.CouponRep:hover {
+    box-shadow: 2px 2px 2px green;
+}
+
+.CouponRep > div{
+    border-bottom: none;
+    display: flex;
 }
 
 .CouponRep > .title{
-    display: flex;
     width: 20%;
 }
 
 .CouponRep > .description{
-    display: flex;
     width: 35%;
 }
 
 .CouponRep > .endDate{
-    display: flex;
     width: 15%;
 }
 
 .CouponRep > .price{
-    display: flex;
     width: 15%;
 }
 
 .CouponRep > .actions {
-    display: flex;
     width: 15%;
     height: 100%;
     font-weight: bold;
@@ -66,4 +71,9 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
+}
+
+.actions > div:hover{
+    background-color: green;
+    color: white;
 }

@@ -3,41 +3,32 @@ import { createSlice } from "@reduxjs/toolkit";
 export const PopUpWindowsSlicer = createSlice({
     name: "PopUpWindowsSlicer",
     initialState: {
+        loginWindow: false,
+        registerWindow: false,
         addCompany: false,
-        deleteCompany: false,
-        findCompany: false,
         addCustomer: false,
-        deleteCustomer: false,
-        findCustomer: false,
         addCoupon: false,
-        deleteCoupon: false,
-        findCoupon: false,
+        updateCoupon: false,
         buyCoupon: false,
     },
     reducers: {
         openWindow: (state, action) => {
             const { stateName } = action.payload;
+            state.loginWindow = stateName === 'loginWindow';
+            state.registerWindow = stateName === 'registerWindow';
             state.addCompany = stateName === 'addCompany';
-            state.deleteCompany = stateName === 'deleteCompany';
-            state.findCompany = stateName === 'findCompany';
             state.addCustomer = stateName === 'addCustomer';
-            state.deleteCustomer = stateName === 'deleteCustomer';
-            state.findCustomer = stateName === 'findCustomer';
             state.addCoupon = stateName === 'addCoupon';
-            state.deleteCoupon = stateName === 'deleteCoupon';
-            state.findCoupon = stateName === 'findCoupon';
+            state.updateCoupon = stateName === 'updateCoupon';
             state.buyCoupon = stateName === 'buyCoupon';
         },
         closeWindow: (state) => {
+            state.loginWindow = false;
+            state.registerWindow = false;
             state.addCompany = false;
-            state.deleteCompany = false;
-            state.findCompany = false;
             state.addCustomer = false;
-            state.deleteCustomer = false;
-            state.findCustomer = false;
             state.addCoupon = false;
-            state.deleteCoupon = false;
-            state.findCoupon = false;
+            state.updateCoupon = false;
             state.buyCoupon = false;
         }
     }
