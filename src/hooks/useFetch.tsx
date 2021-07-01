@@ -3,15 +3,11 @@ import AxiosConfig from "../axios/AxiosConfig";
 
 const useFetch = (url: string) => {
 
-    console.log("OUT")
-
     const [data, setData] = useState<[]>([]);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-
-        console.log("IN")
 
         const abort = new AbortController();
 
